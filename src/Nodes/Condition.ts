@@ -3,15 +3,15 @@ import { Blackboard } from "../Blackboard";
 import { NodeStatus } from "../NodeStatus";
 
 export class Condition extends Node {
-	condition: () => boolean;
+	condition: (blackboard: Blackboard) => boolean;
 
-	constructor(condition: () => boolean) {
+	constructor(condition: (blackboard: Blackboard) => boolean) {
 		super();
 		this.condition = condition;
 	}
 
-	tick() {
-		if (this.condition()) {
+	tick(blackboard: Blackboard) {
+		if (this.condition(blackboard)) {
 			this.status = NodeStatus.SUCCESS;
 		} else {
 			this.status = NodeStatus.FAILURE;
