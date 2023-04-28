@@ -10,6 +10,11 @@ export class Sequence extends Node {
 	}
 
 	tick(blackboard: Blackboard) {
+		if (!this.passConditios(blackboard)) {
+			this.status = NodeStatus.FAILURE;
+			return;
+		}
+
 		for (const child of this.children) {
 			child.tick(blackboard);
 			if (child.status === NodeStatus.FAILURE) {

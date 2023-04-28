@@ -13,6 +13,12 @@ export class MemorySequence extends Node {
 	}
 
 	tick(blackboard: Blackboard) {
+		if (!this.passConditios(blackboard)) {
+			this.status = NodeStatus.FAILURE;
+			this.runningIndex = 0;
+			return;
+		}
+
 		for (let i = this.runningIndex; i < this.childrenCount; i++) {
 			const child = this.children[i];
 			child.tick(blackboard);

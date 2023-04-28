@@ -5,7 +5,7 @@ import { NodeStatus } from "../NodeStatus";
 export class MemorySelector extends Node {
 	children: Node[] = [];
 	childrenCount = 0;
-	runningChild = 0;
+	runningIndex = 0;
 
 	addChild(child: Node) {
 		this.children.push(child);
@@ -13,20 +13,26 @@ export class MemorySelector extends Node {
 	}
 
 	tick(blackboard: Blackboard) {
-		for (let i = this.runningChild; i < this.childrenCount; i++) {
+		if (!this.passConditios(blackboard)) {
+			this.status = NodeStatus.FAILURE;
+			this.runningIndex = 0;
+			return;
+		}
+
+		for (let i = this.runningIndex; i < this.childrenCount; i++) {
 			const child = this.children[i];
 			child.tick(blackboard);
 			if (child.status === NodeStatus.SUCCESS) {
-				this.runningChild = 0;
+				this.runningIndex = 0;
 				this.status = NodeStatus.SUCCESS;
 				return;
 			} else if (child.status === NodeStatus.RUNNING) {
-				this.runningChild = i;
+				this.runningIndex = i;
 				this.status = NodeStatus.RUNNING;
 				return;
 			}
 		}
-		this.runningChild = 0;
+		this.runningIndex = 0;
 		this.status = NodeStatus.FAILURE;
 	}
 }
