@@ -7,9 +7,10 @@ export class MemorySelector extends Node {
 	childrenCount = 0;
 	runningIndex = 0;
 
-	addChild(child: Node) {
+	addChild(child: Node): MemorySelector {
 		this.children.push(child);
 		this.childrenCount += 1;
+		return this;
 	}
 
 	tick(blackboard: Blackboard) {

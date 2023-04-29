@@ -5,8 +5,9 @@ import { NodeStatus } from "../NodeStatus";
 export class Selector extends Node {
 	children: Node[] = [];
 
-	addChild(child: Node) {
+	addChild(child: Node): Selector {
 		this.children.push(child);
+		return this;
 	}
 
 	tick(blackboard: Blackboard) {
