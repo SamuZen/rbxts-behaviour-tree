@@ -8,9 +8,13 @@
     "watch": "rbxtsc -w",
     "prepublishOnly": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamuZen/rbxts-behaviour-tree"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "types": "out/index.d.ts",
   "files": [
     "out",
