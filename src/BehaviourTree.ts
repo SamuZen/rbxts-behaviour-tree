@@ -19,6 +19,7 @@ export class BehaviourTree {
 export abstract class Node {
 	status: NodeStatus = NodeStatus.FAILURE;
 	conditions: Condition[] = [];
+	_blackboard: Blackboard = new Blackboard();
 
 	abstract tick(blackboard: Blackboard): void;
 
