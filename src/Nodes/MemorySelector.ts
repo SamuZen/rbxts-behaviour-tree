@@ -1,11 +1,10 @@
-import { Node } from "../BehaviourTree";
+import { MemoryNode, Node } from "../BehaviourTree";
 import { Blackboard } from "../Blackboard";
 import { NodeStatus } from "../NodeStatus";
 
-export class MemorySelector extends Node {
+export class MemorySelector extends MemoryNode {
 	children: Node[] = [];
 	childrenCount = 0;
-	runningIndex = 0;
 
 	addChild(child: Node): MemorySelector {
 		this.children.push(child);
@@ -14,6 +13,8 @@ export class MemorySelector extends Node {
 	}
 
 	tick(blackboard: Blackboard) {
+		this.memoryTick();
+
 		if (!this.passConditios(blackboard)) {
 			this.status = NodeStatus.FAILURE;
 			this.runningIndex = 0;
@@ -33,6 +34,7 @@ export class MemorySelector extends Node {
 				return;
 			}
 		}
+
 		this.runningIndex = 0;
 		this.status = NodeStatus.FAILURE;
 	}

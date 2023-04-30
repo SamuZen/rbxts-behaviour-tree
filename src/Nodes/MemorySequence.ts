@@ -1,8 +1,8 @@
-import { Node } from "../BehaviourTree";
+import { MemoryNode, Node } from "../BehaviourTree";
 import { Blackboard } from "../Blackboard";
 import { NodeStatus } from "../NodeStatus";
 
-export class MemorySequence extends Node {
+export class MemorySequence extends MemoryNode {
 	children: Node[] = [];
 	childrenCount = 0;
 	runningIndex = 0;
@@ -14,6 +14,8 @@ export class MemorySequence extends Node {
 	}
 
 	tick(blackboard: Blackboard) {
+		this.memoryTick();
+
 		if (!this.passConditios(blackboard)) {
 			this.status = NodeStatus.FAILURE;
 			this.runningIndex = 0;

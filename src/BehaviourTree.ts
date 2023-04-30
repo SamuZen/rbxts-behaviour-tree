@@ -38,3 +38,22 @@ export abstract class Node {
 		return true;
 	}
 }
+
+export abstract class MemoryNode extends Node {
+	runningIndex = 0;
+	memoryDuration = 1;
+	lastTick = 0;
+
+	setMemoryDuration(duration: number) {
+		this.memoryDuration = duration;
+		return this;
+	}
+
+	memoryTick() {
+		const t = os.time();
+		if (t > this.lastTick + this.memoryDuration) {
+			this.runningIndex = 0;
+		}
+		this.lastTick = t;
+	}
+}
